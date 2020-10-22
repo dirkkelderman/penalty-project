@@ -13,10 +13,11 @@ const goalLeft = 300;
 let ballSpeed = 650; // 650 is starting position
 
 window.addEventListener('load', event => {
-    
-    drawGoal();
-    // drawBall(500, ballSpeed, 25, 25, 'black')
-    // randomPositionKeeper();
+
+  drawGoal();
+  drawBall(500, ballSpeed, 25, 25, 'black')
+  drawKeeper()
+  // randomPositionKeeper();
 });
 
 function clearCanvas() {
@@ -30,35 +31,41 @@ function drawBall(x, y, w, h, color) {
 }
 
 function drawGoal() {
-    ctx.beginPath();
-    ctx.moveTo(300, 350);
-    ctx.lineTo(300, 150);
-    ctx.lineTo(700, 150);
-    ctx.lineTo(700, 350);
-    ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(300, 350);
+  ctx.lineTo(300, 150);
+  ctx.lineTo(700, 150);
+  ctx.lineTo(700, 350);
+  ctx.stroke();
 }
 
-function drawKeeper() {
-    ctx.fillStyle = 'blue'
-    ctx.fillRect(475, 200, 50, 150)
+function drawKeeper(goalKeeper) {
+  console.log(`is it working ${goalKeeper.x}`)
+  ctx.fillStyle = 'blue'
+  ctx.fillRect(goalKeeper.x, goalKeeper.y, goalKeeper.width, goalKeeper.height)
 }
 
 
-function updateCanvas() {
+function updateCanvas(game) {
   ballSpeed -= 3;
- 
+  console.log(game.goalKeeper);
   clearCanvas();
-  
+
   drawBall(500, ballSpeed, 25, 25, 'black');
   drawGoal();
-   
-  if (ballSpeed < 160) {
-    ctx.cancelAnimationFrame;
-  } else {
-    requestAnimationFrame(updateCanvas);
-
+  if (game.goalKeeper) {
+    drawKeeper(game.goalKeeper);
   }
+ 
+  requestAnimationFrame(() => {
+    updateCanvas(game)
+  });
+
 }
+
+console.log(game)
+
+
 
 // document.addEventListener('click', () => {
 //     updateCanvas()

@@ -1,6 +1,4 @@
 
-const goalKeeper = [];
-const ball = []; 
 
 class PenaltyShootOut {
     constructor(){
@@ -8,7 +6,9 @@ class PenaltyShootOut {
         this.horizontalAxes = false;
         this.powerShot = false;
         this.clickCount = 0;
-        this.score = 0;        
+        this.score = 0;
+        this.goalKeeper = new Component(50, 150, 'blue', 450, 200);
+        this.ball;      
     }
     whereToShoot() {
         if (this.clickCount === 1){
@@ -34,46 +34,65 @@ class PenaltyShootOut {
             let height = 25; // this should be a ball
             let width = 25; // this should be a ball
             console.log('shootBall')
-            ball.push(new Component(width, height, 'black', x, y))    
+            this.ball = new Component(width, height, 'black', x, y)    
         }
     }
-    createGoalKeeper() {
+
+    moveGoalKeeper() {
         if (this.clickCount === 3) {
-            let x = Math.floor((Math.random() * 1000) + 1);
-            let y = Math.floor((Math.random() * 750) + 1);
-            let height = 150;
-            let width = 50;
-            console.log('createdGoalKeeper')
-            goalKeeper.push(new Component(width, height, 'blue', x, y));
+            let x = Math.floor((Math.random() * 400) + 300);
+            let y = Math.floor((Math.random() * 100) + 150);
+           
+            this.goalKeeper.x = x
+            this.goalKeeper.y = y
           
         }
     }
     updateScore() {
-        // if no collision, update score++
+        // if no collision, update score++s
     }
     gameOver() {
         if (this.score === 5) {
           console.log('the game is over.')
         }
     }
-    checkIfScored(r1, r2) {
-
-      if (r1.x>r2.x+r2.w || r1.x+r1.w<r2.x || r1.y>r2.y+r2.h || r1.y+r1.h<r2.y) {
-        console.log('collision detected!')
+    checkIfScored() {
+       if ( this.ball.x <  this.goalKeeper.x +  this.ball.width &&
+         this.ball.x +  this.ball.width >  this.goalKeeper.x &&
+         this.ball.y <  this.goalKeeper.y +  this.ball.height &&
+         this.ball.y +  this.ball.height >  this.goalKeeper.y) {         
+         console.log('collision detected!');
       } else {
-        console.log('no collision')
-      }
+        console.log('no collision, so GOALLL!!!')
+      }   
+      
 
-      // if (ball.x < goalKeeper.x + ball.width &&
-      //   ball.x + ball.width > goalKeeper.x &&
-      //   ball.y < goalKeeper.y + ball.height &&
-      //   ball.y + ball.height > goalKeeper.y) {
-      //    // collision detected!
-      //    console.log('collision detected!');
-    //   else if (this.clickCount === 3) {
+      // If ball is outside goal area, also NO GOAL.
+
+    //   } else if (this.clickCount === 3) {
     //    this.score++
     //   console.log('no collision');
     //  }
+
+    // let  this.goalKeeperArr = goalKeeper.map( coo => {
+    //   return {
+    //     x: coo.x, //+ coo.width,
+    //     y: coo.y //+ coo.height
+    //   }
+    // })
+    
+    // let ballArr = ball.map( coo => {
+    //   return {
+    //     x: coo.x, //+ coo.width,
+    //     y: coo.y  //+ coo.height
+    //   }
+    // })  
+    // console.log(goalKeeperArr[0].x === ballArr[0].x && goalKeeperArr[0].y === ballArr[0].y) 
+    // if (goalKeeperArr[0].x === ballArr[0].x && goalKeeperArr[0].y === ballArr[0].y) {
+    //   console.log('collision!!');
+    // } else {
+    //   console.log('goal!!')
+    // }
     }
     
 }
@@ -96,24 +115,4 @@ class Component {
   }
 
 
-  const game = new PenaltyShootOut();
-
-
-// Click events to trigger the game, step by step.
-
-document.addEventListener('click', () => {
-    game.clickCount++;
-    console.log(game.clickCount);
-    console.log(`score is: ${game.score}`);
-
-    if (game.clickCount) {
-      game.whereToShoot();
-      game.shootBall();
-      game.createGoalKeeper()
-      game.checkIfScored(goalKeeper, ball)
-    }
-    console.log(goalKeeper)
-    console.log(ball);
-});
-
-
+ 
