@@ -3,7 +3,7 @@ const game = new PenaltyShootOut();
 
 // Click events to trigger the game, step by step.
 document.addEventListener('load', () => {
-  game.whereToShoot()
+  // game.whereToShoot()
 } )
 
 document.addEventListener('click', () => {

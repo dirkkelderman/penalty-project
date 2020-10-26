@@ -5,7 +5,7 @@ class PenaltyShootOut {
     // this.powerShot = false;
     this.clickCount = 0;
     this.score = 0;
-    this.goalKeeper = new Component(50, 150, 'blue', 475, 200);
+    this.goalKeeper = new Component(125, 175, 'blue', 437.5, 200);
     this.ball = new Component(25, 25, 'black', 487.5, 550);
     this.attempts = 0;
     this.pointer = new Component(10, 10, 'red', 487.5, 550);
@@ -13,36 +13,40 @@ class PenaltyShootOut {
   whereToShoot() {
     switch (this.clickCount) {
       case 0:
-        console.log(`Click once for horizontal loop`)
-        break;
-
-      case 1:
         verticalLoop()
         break;
 
-      case 2:
+      case 1:
         stopVerticalLoop()
-        // horizontalLoop()
+        horizontalLoop()
+        break;
+
+      case 2:
+        stopHorizontalLoop()
         break;
 
       case 3:
-        // stopHorizontalLoop()
-
         this.shootBall();
-        this.checkIfScored();
         this.moveGoalKeeper();
         this.checkIfScored();
-        this.clickCount = 0;
         break;
+
+      case 4:
+        verticalLoop()
+        horizontalLoop()
+        this.clickCount = 0;
+
     }
   }
 
   shootBall() {
-    let x = this.ball.x; // this should be player input (vert/horiz/power)
-    let y = this.ball.y; // this should be player input (vert/horiz/power)
-    let height = 25; // this should be a ball
-    let width = 25; // this should be a ball
+    let x = this.ball.x; 
+    let y = this.ball.y; 
+   
     console.log('shootBall')
+
+    this.ball.x = x;
+    this.ball.y = y;
 
   }
 
@@ -92,37 +96,36 @@ class Component {
     this.y = y;
   }
 
-  update() {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-  }
-
 }
 
 
-let vertical = setInterval(verticalLoop, 5);
+let vertical = setInterval(verticalLoop, 20);
 
-let vertCounter = 100;
+let vertCounter = 400;
 let vertCountup = true;
 
 function verticalLoop() {
       if (vertCountup) {
       ++vertCounter;
-      if (vertCounter >= 350)
+      if (vertCounter >= 450)
       vertCountup = false;
     } else {
       --vertCounter;
-      if (vertCounter <= 100)
+      if (vertCounter <= 400)
       vertCountup = true;
     }
-    game.ball.y = vertCounter;
+    game.ball.y = (vertCounter - 350) ** 1.25;
+    game.pointer.y = vertCounter;
+    
+    
+    // game.ball.y = vertCounter;
 }
 
 function stopVerticalLoop() {
   clearInterval(vertical);
 }
 
-let horizontal = setInterval(horizontalLoop, 5);
+let horizontal = setInterval(horizontalLoop, 20);
 
 let horizCounter = 250;
 let horizCountup = true;
@@ -130,14 +133,18 @@ let horizCountup = true;
 function horizontalLoop() {
       if (horizCountup) {
       ++horizCounter;
-      if (horizCounter >= 750)
+      if (horizCounter >= 300)
       horizCountup = false;
     } else {
       --horizCounter;
       if (horizCounter <= 250)
       horizCountup = true;
     }
-    game.ball.x = horizCounter;
+
+    game.ball.x = (horizCounter - 210) ** 1.47;
+    
+    game.pointer.x = horizCounter;
+    // game.ball.x = horizCounter;
 }
 
 function stopHorizontalLoop() {
