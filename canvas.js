@@ -34,7 +34,17 @@ function drawPointerVertical(pointer) {
   ctx.fillRect(pointer.x, 450, pointer.width, pointer.height)
 }
 
+let powerMeterVertImg = new Image() 
+powerMeterVertImg.src = './img/powermetervert.png'
+
+let powerMeterHorizImg = new Image() 
+powerMeterHorizImg.src = './img/powermeterhoriz.png'
+
 function drawMeter() {
+
+  ctx.drawImage(powerMeterVertImg, 100, 400, 25, 150);
+  ctx.drawImage(powerMeterHorizImg, 125, 550, 150, 25);
+
   ctx.beginPath();
   ctx.moveTo(250, 400);
   ctx.lineTo(250, 460);
@@ -59,12 +69,29 @@ function drawGoal() {
 }
 
 let keeperImg = new Image(); // Create new <img> element
-keeperImg.src = './img/keeper.jpg'; // Set source path
+keeperImg.src = './img/ajaxkeeper2.png'; // Set source path
 
 function drawKeeper(goalKeeper) {
   ctx.fillStyle = 'blue'
   ctx.drawImage(keeperImg, goalKeeper.x, goalKeeper.y, goalKeeper.width, goalKeeper.height)
 }
+
+let stadiumImg = new Image();
+stadiumImg.src = './img/arenabackground.jpg'; 
+
+function drawStadium() {
+  ctx.drawImage(stadiumImg, 0, 0, 1000, 700)
+
+}
+
+let goalImg = new Image();
+goalImg.src = './img/football_goal_PNG24.png'
+
+function drawNewGoal() {
+  ctx.drawImage(goalImg, 300, 150, 400, 250)
+
+}
+
 
 function writeScore(score) {
   ctx.font = '40px Georgia'
@@ -82,23 +109,27 @@ function writeAttempts(attempts) {
 
 function updateCanvas(game) {
   clearCanvas();
-  drawGoal();
   
-  if (game.goalKeeper) {
-    drawKeeper(game.goalKeeper);
-  }
+  
 
-  if (game.ball) {
-     drawBall(game.ball)
-  }
   
-  writeScore(game.score)
+
+
+  drawStadium()
+  drawGoal();
+  drawNewGoal() 
+
+    drawKeeper(game.goalKeeper);
+    writeScore(game.score)
   writeAttempts(game.attempts)
   
   drawPointerVertical(game.pointer);
   drawMeter()
   drawPointerHorizontal(game.pointer);
 
+  if (game.ball) {
+     drawBall(game.ball)
+  }
   requestAnimationFrame(() => {
     updateCanvas(game)
   });
