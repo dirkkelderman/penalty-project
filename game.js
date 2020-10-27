@@ -35,6 +35,7 @@ class PenaltyShootOut {
         verticalLoop()
         horizontalLoop()
         this.clickCount = 0;
+        myGameArea.ball()
 
     }
   }
@@ -95,7 +96,17 @@ class Component {
     this.x = x;
     this.y = y;
   }
-
+  update() {
+    let ballImg = new Image();
+    ballImg.src = './img/football.png';
+    const ctx = myGameArea.context;
+    ctx.fillStyle = this.color;
+    ctx.drawImage(ballImg, this.x, this.y, this.width, this.height);
+  }
+  newPos() {
+    // this.x += (vertCounter - 350) ** 1.25;
+    // this.y += (horizCounter - 210) ** 1.47;
+  }
 }
 
 
