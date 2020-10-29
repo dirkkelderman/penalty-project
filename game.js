@@ -36,38 +36,28 @@ class PenaltyShootOut {
         horizontalLoop()
         this.clickCount = 0;
         myGameArea.ball()
-
     }
   }
-
   shootBall() {
-    let x = this.ball.x; 
-    let y = this.ball.y; 
-   
-    console.log('shootBall')
+    let x = cx.value
+    let y = cy.value
 
+    // console.log('shootBall')
     this.ball.x = x;
     this.ball.y = y;
-
   }
-
-
   moveGoalKeeper() {
-
     let x = Math.floor((Math.random() * 400) + 300);
     let y = Math.floor((Math.random() * 100) + 150);
 
     this.goalKeeper.x = x
     this.goalKeeper.y = y
-
   }
-
   gameOver() {
     if (this.attempts === 5) {
       console.log('the game is over.')
     }
   }
-
   checkIfScored() {
     if (this.ball.x < this.goalKeeper.x + this.ball.width &&
       this.ball.x + this.ball.width > this.goalKeeper.x &&
@@ -100,12 +90,12 @@ class Component {
     let ballImg = new Image();
     ballImg.src = './img/football.png';
     const ctx = myGameArea.context;
-    ctx.fillStyle = this.color;
-    ctx.drawImage(ballImg, this.x, this.y, this.width, this.height);
+    this.ctx.fillStyle = this.color;
+    this.ctx.drawImage(ballImg, this.x, this.y, this.width, this.height);
   }
   newPos() {
-    // this.x += (vertCounter - 350) ** 1.25;
-    // this.y += (horizCounter - 210) ** 1.47;
+    this.x += 150;
+    this.y += 150;
   }
 }
 
@@ -125,7 +115,7 @@ function verticalLoop() {
       if (vertCounter <= 400)
       vertCountup = true;
     }
-    game.ball.y = (vertCounter - 350) ** 1.25;
+    // game.ball.y = (vertCounter - 350) ** 1.25;
     game.pointer.y = vertCounter;
     
     
@@ -152,7 +142,7 @@ function horizontalLoop() {
       horizCountup = true;
     }
 
-    game.ball.x = (horizCounter - 210) ** 1.47;
+    // game.ball.x = (horizCounter - 210) ** 1.47;
     
     game.pointer.x = horizCounter;
     // game.ball.x = horizCounter;
