@@ -6,9 +6,9 @@ class PenaltyShootOut {
     this.clickCount = 0;
     this.score = 0;
     this.goalKeeper = new Component(125, 175, 'blue', 437.5, 200);
-    this.ball = new Component(25, 25, 'black', 487.5, 550);
+    this.ball = new Component(25, 25, 'black', 487.5, 490);
     this.attempts = 0;
-    this.pointer = new Component(10, 10, 'red', 487.5, 550);
+    this.pointer = new Component(10, 10, 'red', 487.5, 450);
   }
   whereToShoot() {
     switch (this.clickCount) {
@@ -39,8 +39,8 @@ class PenaltyShootOut {
     }
   }
   shootBall() {
-    let x = cx.value
-    let y = cy.value
+    let x = game.pointer.x
+    let y = game.pointer.y
 
     // console.log('shootBall')
     this.ball.x = x;
@@ -54,24 +54,32 @@ class PenaltyShootOut {
     this.goalKeeper.y = y
   }
   gameOver() {
-    if (this.attempts === 5) {
-      console.log('the game is over.')
+    if (this.attempts > 5) {
+      alert("YOU LOST, CLICK REFRESH TO TRY AGAIN!")
+    } else if (this.score > 5) {
+      alert("YOU WIN, CONGRATULATIONS!")
     }
   }
   checkIfScored() {
-    if (this.ball.x < this.goalKeeper.x + this.ball.width &&
-      this.ball.x + this.ball.width > this.goalKeeper.x &&
-      this.ball.y < this.goalKeeper.y + this.ball.height &&
-      this.ball.y + this.ball.height > this.goalKeeper.y) {
+    if (this.pointer.x < this.goalKeeper.x + this.ball.width &&
+    this.pointer.x + this.ball.width > this.goalKeeper.x &&
+    this.pointer.y < this.goalKeeper.y + this.ball.height &&
+    this.pointer.y + this.ball.height > this.goalKeeper.y) {
       console.log('collision detected!');
       this.attempts++;
+      let missedAudio = new Audio('./sound/football-crowd-near-miss-from-freekick.wav');
+      missedAudio.play();
     } else if (this.ball.x < 300 || this.ball.x > 675) {
       console.log('outside goal, missed!');
       this.attempts++;
+      let missedAudio = new Audio('./sound/football-crowd-near-miss-from-freekick.wav');
+      missedAudio.play();
     } else {
       console.log('no collision, so GOALLL!!!')
       this.attempts++;
       this.score++;
+      let scoredAudio = new Audio('./sound/196461__paulw2k__football-crowd-goal.wav');
+      scoredAudio.play();
     }
   }
 
@@ -82,20 +90,27 @@ class Component {
   constructor(width, height, color, x, y) {
     this.width = width;
     this.height = height;
-    this.color = color;
+    // this.color = color;
     this.x = x;
     this.y = y;
+    this.speedX = 0;
+    this.speedY = 0;
   }
   update() {
-    let ballImg = new Image();
-    ballImg.src = './img/football.png';
-    const ctx = myGameArea.context;
-    this.ctx.fillStyle = this.color;
-    this.ctx.drawImage(ballImg, this.x, this.y, this.width, this.height);
+
+      // const ctx = myGameArea.context;
+      // // myGameArea.ctx.fillStyle = this.color;
+      // myGameArea.ctx.fillRect(this.x, this.y, this.width, this.height);
+    // }
+    // let ballImg = new Image();
+    // ballImg.src = './img/football.png';
+    // const ctx = myGameArea.context;
+    // this.ctx.fillStyle = this.color;
+    // this.ctx.drawImage(ballImg, this.x, this.y, this.width, this.height);
   }
   newPos() {
-    this.x += 150;
-    this.y += 150;
+    this.x += this.speedX;
+    this.y += this.speedY;
   }
 }
 
@@ -116,7 +131,7 @@ function verticalLoop() {
       vertCountup = true;
     }
     // game.ball.y = (vertCounter - 350) ** 1.25;
-    game.pointer.y = vertCounter;
+    // game.pointer.y = vertCounter;
     
     
     // game.ball.y = vertCounter;
@@ -144,7 +159,7 @@ function horizontalLoop() {
 
     // game.ball.x = (horizCounter - 210) ** 1.47;
     
-    game.pointer.x = horizCounter;
+    // game.pointer.x = horizCounter;
     // game.ball.x = horizCounter;
 }
 
