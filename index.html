@@ -10,26 +10,28 @@
     <title>Penalty Shoot Out by Dirk Kelderman</title>
   </head>
 
-  <body>
+  <body id="body" class="background-load">
 
 
     <div class="container" id="title-container">
-      <h1>Penalty Shoot Out by Dirk Kelderman</h1>
+      <h1>Penalty Shoot Out</h1>
       <button id="start-game">Start</button>
+
+      <div id="video" class="video">
+        <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+            <source src="./vid/soccerfield.mp4" type="video/mp4">
+        </video>
+      </div>
+
     </div>
 
-
-    <!-- <div class="game-container">
-      <div class="shot-container">
-        <button id="shoot-again">shoot-again</button>
-          <label>X-pos<input type=range id=xpos min=250  value=250 max=750 step=1></label>
-          <label>Y-pos<input type=range class="vranger" id=ypos min=100 value=150 max=350 step=1></label>
-        <button id="shoot" class="btn-5">Shoot</button>
-      </div>
-    </div> -->
-  
-
-
+    <div id="gamecontrol" class="container" style="display: none;">
+        <h2>Use the arrowkeys to aim.</h2>
+        <img class="arrows" src="./img/arrowkeys.png" alt="">
+        <h2>Us the spacebar to shoot.</h2>
+        <img class="spacebar" src="./img/spacebar-icon-25.png" alt="">
+        
+    </div>
 
 
     <script src="./canvas.js"></script>

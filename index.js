@@ -1,36 +1,37 @@
 const game = new PenaltyShootOut();
 
 
-// Click events to trigger the game, step by step.
-document.addEventListener('load', () => {
-  // game.whereToShoot()
-} )
+// Load intro song
+window.addEventListener('load', () => {
+  let introAudio = new Audio('./sound/penaltyintro.wav');
+  introAudio.play();
+})
+
+// Click events to load the game and change layout HTML.
 
 document.getElementById('start-game').onclick = function () {
   myGameArea.start();
+  startGame()
+
+  let video = document.getElementById('video')
+  video.remove();
+  
+  let background = document.getElementById('body')
+  background.classList.remove('background-load')
+
+  let startbutton = document.getElementById('start-game')
+  startbutton.remove();
+
+  let gamecontrol = document.getElementById("gamecontrol");
+  if (gamecontrol.style.display === "none") {
+    gamecontrol.style.display = "block";
+  } else {
+    gamecontrol.style.display = "none";
+  }
+
 };
 
-
-
-document.addEventListener('click', () => {
-    // game.clickCount++;
-    console.log(`clickcount is ${game.clickCount}`);
-    console.log(`score is: ${game.score}`);
-
-    // if (game.verticalAxes) {
-    //   game.horizontalAxes=false;
-    // }
-    
-    game.whereToShoot()
-
-    console.log(game.goalKeeper)
-    console.log(game.ball);
-    
-    
-});
-
-
-
+// Keyboard movements to aim the ball. 
 
 document.addEventListener('keydown', (e) => {
   switch (e.keyCode) {
@@ -59,3 +60,5 @@ document.addEventListener('keyup', (e) => {
     game.pointer.speedX = 0;
     game.pointer.speedY = 0;
 });
+
+

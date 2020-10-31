@@ -1,3 +1,10 @@
+
+@font-face {
+    font-family: Punkboy;
+    src: url(./css/punkboy.regular.ttf)
+}
+
+
 body {
     display: flex;
     justify-content: center;
@@ -6,28 +13,13 @@ body {
     background-color: green;
 }
 
-.shot-container {
-    width: 1000px;
+.container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     margin-top: 2%;
 }
 
-.game-container {
-    border: 5px solid red;
-    padding: 25px
-   
-}
-/* canvas {
-    border: 5px solid red;
-} */
-/* .container {
-    display: flex;
-    justify-content: center;
-    
-
-} */
 
 .vranger {
     margin-top: 50px;
@@ -35,49 +27,24 @@ body {
     -moz-transform: rotate(270deg); /*do same for other browsers if required*/
   }
 
-  /* #shoot {
-      color: white;
-      background-color: red;
-      font-size: 50px;
-  } */
-
-  #shoot {
-    border: 0 solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0);
-    outline: 1px solid;
-    outline-color: rgba(252, 40, 40, 0.5);
-    outline-offset: 0px;
-    text-shadow: none;
-    transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-    background-color: red;
-    font-size: 30px;
-  } 
-  
-  #shoot:hover {
-    border: 1px solid;
-    box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
-    outline-color: rgba(255, 255, 255, 0);
-    outline-offset: 15px;
-    text-shadow: 1px 1px 2px #427388; 
-  }
 
   #start-game {
       font-size: 50px;
   }
 
   button {
-    color: #fff;
+    color: black;
     cursor: pointer;
     display: block;
-    /* font-size:16px; */
     font-weight: 400;
     line-height: 45px;
     margin: 0 0 2em;
+    padding: 10px;
     max-width: 200px; 
     position: relative;
     text-decoration: none;
-    /* text-transform: uppercase; */
     width: 100%; 
+    font-family: Punkboy;
  }
 
 
@@ -91,20 +58,76 @@ body {
     font-size: 62.5%;
     padding: 0;
     margin: 0;
+    
   }
-  .test {
-    overflow: hidden;
-  }
-  .velocity-animating {
-    -webkit-transition: none !important;
-    transition: none !important;
-  }
+
   body {
     background-image: -webkit-radial-gradient(ellipse, #2a437c 0, #10203b 100%);
     font-family: 'Open Sans', helvetica, arial, sans-serif;
-  }
-  main {
-    opacity: 0;
+    
   }
   
+  .background-load {
+    background-image: -webkit-radial-gradient(ellipse, #000000 0, #000000 100%);
+    font-family: 'Open Sans', helvetica, arial, sans-serif;
+  }
   
+  h1 {
+      color: white;
+      font-size: 35px;
+      font-family: Punkboy;
+  }
+
+  h2 {
+    color: white;
+    font-size: 15px;
+    font-family: Punkboy;
+}
+  
+  .arrows {
+    height: 150px;
+  }
+
+  .spacebar {
+    height: 100px;
+  }
+  
+  .video {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    margin-top: 25px;
+    font-size: 21px;
+    text-align: center;
+    -webkit-animation: fadein 2s;
+}
+
+.videofadeout {
+    -webkit-animation: fadeout 5s;
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
+@-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
