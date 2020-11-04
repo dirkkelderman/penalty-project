@@ -36,6 +36,11 @@ const myGameArea = {
     goalImg.src = './img/football_goal_PNG24.png'
     this.ctx.drawImage(goalImg, 300, 115, 400, 280)
   },
+  drawBall: function () {
+    let ballImg = new Image();
+    ballImg.src = './img/football.png';
+    this.ctx.drawImage(ballImg, game.ball.x, game.ball.y, game.ball.width, game.ball.height)
+  },
   ballStart: function () {
     let ballImg = new Image();
     ballImg.src = './img/football.png';
@@ -43,11 +48,11 @@ const myGameArea = {
     let ballY = 450
     this.ctx.drawImage(ballImg, ballX, ballY, game.ball.width, game.ball.height);
   },
-  ballShoot: function () {
-    let ballImg = new Image();
-    ballImg.src = './img/football.png';
-    this.ctx.drawImage(ballImg, game.ball.x, game.ball.y, game.ball.width, game.ball.height)
-  },
+  // ballShoot: function () {
+  //   let ballImg = new Image();
+  //   ballImg.src = './img/football.png';
+  //   this.ctx.drawImage(ballImg, game.ball.x, game.ball.y, game.ball.width, game.ball.height)
+  
   drawPointer: function (){
     let PointerImg = new Image();
     PointerImg.src = './img/crosshairgreen.png';
@@ -62,7 +67,7 @@ function updateGameArea() {
   myGameArea.keeper();
   myGameArea.score();
   myGameArea.attempts();
-  myGameArea.ballShoot();
+  myGameArea.drawBall();
   myGameArea.drawPointer();
   game.pointer.newPos();
   game.pointer.update();
@@ -75,3 +80,9 @@ function startGame() {
   
 }
 
+
+// let startX = (myGameArea.canvas.width - game.ball.width)/2; 
+// let startY = 450;
+
+// let newX = game.pointer.x;
+// let newY = game.pointer.y;

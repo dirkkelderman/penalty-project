@@ -3,8 +3,8 @@ const game = new PenaltyShootOut();
 
 // Load intro song
 window.addEventListener('load', () => {
-  let introAudio = new Audio('./sound/penaltyintro.wav');
-  introAudio.play();
+  // let introAudio = new Audio('./sound/penaltyintro.wav');
+  // introAudio.play();
 })
 
 // Click events to load the game and change layout HTML.
@@ -12,6 +12,9 @@ window.addEventListener('load', () => {
 document.getElementById('start-game').onclick = function () {
   myGameArea.start();
   startGame()
+
+  let introAudio = new Audio('./sound/penaltyintro.wav');
+  introAudio.play();
 
   let video = document.getElementById('video')
   video.remove();
@@ -48,11 +51,15 @@ document.addEventListener('keydown', (e) => {
       game.pointer.speedX += 2;
       break;
     case 32: // spacebar
-      game.shootBall();
+      game.updateBallPosition();
       game.moveGoalKeeper();
       game.checkIfScored();
       game.gameOver();
-      break;  
+      break;
+    case 82: // r key
+      myGameArea.ballStart()
+      
+      break;     
   }
 });
 
@@ -62,3 +69,28 @@ document.addEventListener('keyup', (e) => {
 });
 
 
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
